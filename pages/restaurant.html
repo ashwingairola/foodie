@@ -24,15 +24,33 @@
         <div><small>Cuisines:</small></div>
         <div><small>Cost for Two: </small></div>
         <div><small>Hours:</small></div>
+        <div><small>Featured Dish:</small></div>
       </div>
       <div class="value">
         <div>{{restaurant.cuisine}}</div>
         <div>₹{{restaurant.cost | number}}</div>
         <div>{{restaurant.hours}}</div>
+        <div class="bestDish" ng-if="restaurant.bestDish">
+          <span>{{restaurant.bestDish.name}}</span>
+          <div class="button" ng-click="getIngredients(restaurant.bestDish.image)">Get Ingredients</div>
+          <div class="button" ng-click="checkForDiabetes(restaurant.bestDish.image)">Diabetes Checker</div>
+        </div>
       </div>
     </div>
     <div class="rating">
       <strong>{{restaurant.vote}}</strong>
+    </div>
+
+    <div ng-switch="isSuitableForDiabetics">
+      <div ng-switch-when="true">This item is suitable for diabetics!</div>
+      <div ng-switch-when="false">NOTE: This item may not be suitable for diabetics.</div>
+      <div ng-switch-default></div>
+    </div>
+
+    <div ng-if="ingredients">
+      <ol>
+        <li ng-repeat="ingredient in ingredients">{{ingredient}}</li>
+      </ol>
     </div>
   </div>
 </div>
